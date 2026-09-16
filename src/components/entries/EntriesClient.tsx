@@ -53,9 +53,9 @@ export function EntriesClient({
           className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-end"
         >
           <label className="block space-y-1">
-            <span className="text-sm font-medium text-slate-700">Project</span>
+            <span className="text-sm font-medium text-mutedStrong">Project</span>
             <select
-              className="rounded-lg border border-slate-300 px-3 py-2 text-sm"
+              className="rounded-lg border border-border bg-card px-3 py-2 text-sm text-foreground"
               value={projectId}
               onChange={(e) => setProjectId(e.target.value)}
             >
@@ -69,19 +69,19 @@ export function EntriesClient({
             </select>
           </label>
           <label className="block space-y-1">
-            <span className="text-sm font-medium text-slate-700">From</span>
+            <span className="text-sm font-medium text-mutedStrong">From</span>
             <input
               type="date"
-              className="rounded-lg border border-slate-300 px-3 py-2 text-sm"
+              className="rounded-lg border border-border bg-card px-3 py-2 text-sm text-foreground"
               value={from}
               onChange={(e) => setFrom(e.target.value)}
             />
           </label>
           <label className="block space-y-1">
-            <span className="text-sm font-medium text-slate-700">To</span>
+            <span className="text-sm font-medium text-mutedStrong">To</span>
             <input
               type="date"
-              className="rounded-lg border border-slate-300 px-3 py-2 text-sm"
+              className="rounded-lg border border-border bg-card px-3 py-2 text-sm text-foreground"
               value={to}
               onChange={(e) => setTo(e.target.value)}
             />
@@ -91,7 +91,7 @@ export function EntriesClient({
           </Button>
           <a
             href={exportHref}
-            className="inline-flex items-center justify-center rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
+            className="inline-flex items-center justify-center rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white hover:bg-accentHover dark:text-[#0C0F14]"
           >
             Export CSV
           </a>
@@ -99,7 +99,9 @@ export function EntriesClient({
       </Card>
 
       <Card>
-        <h2 className="mb-3 text-lg font-semibold">Manual entry</h2>
+        <h2 className="mb-3 text-lg font-semibold text-foreground">
+          Manual entry
+        </h2>
         <EntryForm
           projects={activeProjects}
           onCreated={() => router.refresh()}

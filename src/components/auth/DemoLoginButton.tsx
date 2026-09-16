@@ -14,7 +14,9 @@ export function DemoLoginButton() {
     const res = await signIn("demo", { callbackUrl: "/dashboard", redirect: false });
     setLoading(false);
     if (res?.error) {
-      setError("Demo login unavailable. Run db:seed and ensure DEMO_LOGIN_ENABLED=true.");
+      setError(
+        "Demo login unavailable. Run db:seed and ensure DEMO_LOGIN_ENABLED=true.",
+      );
       return;
     }
     window.location.href = "/dashboard";
@@ -24,14 +26,14 @@ export function DemoLoginButton() {
     <div className="space-y-2">
       <Button
         type="button"
-        variant="secondary"
+        variant="primary"
         className="w-full"
         disabled={loading}
         onClick={onClick}
       >
         {loading ? "Signing in…" : "Demo Login"}
       </Button>
-      {error ? <p className="text-sm text-red-600">{error}</p> : null}
+      {error ? <p className="text-sm text-danger">{error}</p> : null}
     </div>
   );
 }

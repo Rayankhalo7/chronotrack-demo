@@ -41,8 +41,8 @@ export default async function EntriesPage({
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-slate-900">Entries</h1>
-        <p className="text-sm text-slate-500">
+        <h1 className="text-2xl font-bold text-foreground">Entries</h1>
+        <p className="text-sm text-muted">
           Filter by project and date range. Add manual entries below.
         </p>
       </div>

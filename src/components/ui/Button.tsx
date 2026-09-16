@@ -7,11 +7,12 @@ type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
 
 const variants: Record<NonNullable<Props["variant"]>, string> = {
   primary:
-    "bg-blue-600 text-white hover:bg-blue-700 disabled:bg-blue-300",
+    "bg-accent text-white hover:bg-accentHover disabled:opacity-50 dark:text-[#0C0F14]",
   secondary:
-    "bg-slate-100 text-slate-900 hover:bg-slate-200 border border-slate-200",
-  danger: "bg-red-600 text-white hover:bg-red-700",
-  ghost: "bg-transparent text-slate-700 hover:bg-slate-100",
+    "bg-card text-foreground hover:bg-accentSoft border border-border",
+  danger:
+    "bg-danger text-white hover:opacity-90 disabled:opacity-50 dark:text-[#0C0F14]",
+  ghost: "bg-transparent text-mutedStrong hover:bg-accentSoft hover:text-foreground",
 };
 
 export function Button({

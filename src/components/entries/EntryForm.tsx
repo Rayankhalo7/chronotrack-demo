@@ -50,9 +50,9 @@ export function EntryForm({
   return (
     <form onSubmit={submit} className="space-y-3">
       <label className="block space-y-1">
-        <span className="text-sm font-medium text-slate-700">Project</span>
+        <span className="text-sm font-medium text-mutedStrong">Project</span>
         <select
-          className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm"
+          className="w-full rounded-lg border border-border bg-card px-3 py-2 text-sm text-foreground"
           value={projectId}
           onChange={(e) => setProjectId(e.target.value)}
           required
@@ -87,8 +87,8 @@ export function EntryForm({
       <Button type="submit" disabled={busy || !projectId}>
         {busy ? "Saving…" : "Add entry"}
       </Button>
-      {error ? <p className="text-sm text-red-600">{error}</p> : null}
-      {ok ? <p className="text-sm text-emerald-600">Entry saved.</p> : null}
+      {error ? <p className="text-sm text-danger">{error}</p> : null}
+      {ok ? <p className="text-sm text-success">Entry saved.</p> : null}
     </form>
   );
 }

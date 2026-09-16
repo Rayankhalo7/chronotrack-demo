@@ -30,7 +30,10 @@ export function ProjectForm({ onCreated }: { onCreated?: () => void }) {
   }
 
   return (
-    <form onSubmit={submit} className="flex flex-col gap-3 sm:flex-row sm:items-end">
+    <form
+      onSubmit={submit}
+      className="flex flex-col gap-3 sm:flex-row sm:items-end"
+    >
       <div className="flex-1">
         <Input
           label="Project name"
@@ -41,18 +44,20 @@ export function ProjectForm({ onCreated }: { onCreated?: () => void }) {
         />
       </div>
       <label className="block space-y-1">
-        <span className="text-sm font-medium text-slate-700">Color</span>
+        <span className="text-sm font-medium text-mutedStrong">Color</span>
         <input
           type="color"
           value={color}
           onChange={(e) => setColor(e.target.value)}
-          className="h-10 w-14 cursor-pointer rounded border border-slate-300 bg-white"
+          className="h-10 w-14 cursor-pointer rounded border border-border bg-card"
         />
       </label>
       <Button type="submit" disabled={busy || !name.trim()}>
         {busy ? "Adding…" : "Add project"}
       </Button>
-      {error ? <p className="text-sm text-red-600 sm:basis-full">{error}</p> : null}
+      {error ? (
+        <p className="text-sm text-danger sm:basis-full">{error}</p>
+      ) : null}
     </form>
   );
 }

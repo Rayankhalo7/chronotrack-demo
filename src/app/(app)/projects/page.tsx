@@ -16,8 +16,8 @@ export default async function ProjectsPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-slate-900">Projects</h1>
-        <p className="text-sm text-slate-500">
+        <h1 className="text-2xl font-bold text-foreground">Projects</h1>
+        <p className="text-sm text-muted">
           Soft-archive projects that have entries. Hard-delete only when empty.
         </p>
       </div>

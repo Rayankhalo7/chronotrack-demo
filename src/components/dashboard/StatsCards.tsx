@@ -11,14 +11,14 @@ export function StatsCards({
   return (
     <div className="grid gap-4 sm:grid-cols-2">
       <Card>
-        <p className="text-sm font-medium text-slate-500">Today</p>
-        <p className="mt-1 text-3xl font-semibold text-slate-900">
+        <p className="text-sm font-medium text-muted">Today</p>
+        <p className="mt-1 text-3xl font-semibold tabular-nums text-foreground">
           {formatMinutes(todayMinutes)}
         </p>
       </Card>
       <Card>
-        <p className="text-sm font-medium text-slate-500">This week</p>
-        <p className="mt-1 text-3xl font-semibold text-slate-900">
+        <p className="text-sm font-medium text-muted">This week</p>
+        <p className="mt-1 text-3xl font-semibold tabular-nums text-foreground">
           {formatMinutes(weekMinutes)}
         </p>
       </Card>

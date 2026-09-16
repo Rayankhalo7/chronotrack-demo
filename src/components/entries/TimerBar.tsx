@@ -16,10 +16,12 @@ export function TimerBar({
   projects,
   initialActive,
   onChanged,
+  sticky = false,
 }: {
   projects: Project[];
   initialActive: Active;
   onChanged?: () => void;
+  sticky?: boolean;
 }) {
   const [projectId, setProjectId] = useState(projects[0]?.id ?? "");
   const [active, setActive] = useState<Active>(initialActive);
@@ -74,42 +76,54 @@ export function TimerBar({
   const seconds = active
     ? elapsedSeconds(new Date(active.startedAt)) + tick * 0
     : 0;
-  // recompute from startedAt each tick
   void tick;
   const display = active
     ? formatDuration(elapsedSeconds(new Date(active.startedAt)))
     : "00:00:00";
 
+  const shouldStick = sticky || Boolean(active);
+
   return (
-    <div className="flex flex-col gap-3 rounded-xl border border-slate-200 bg-white p-4 shadow-sm sm:flex-row sm:items-center sm:justify-between">
-      <div className="flex flex-1 flex-col gap-2 sm:flex-row sm:items-center">
+    <div
+      className={`flex flex-col gap-3 rounded-xl border border-border bg-card p-4 sm:flex-row sm:items-center sm:justify-between ${
+        shouldStick ? "sticky top-14 z-30 shadow-sm" : ""
+      }`}
+    >
+      <div className="flex flex-1 flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
         {active ? (
-          <div>
-            <p className="text-xs font-medium uppercase tracking-wide text-slate-500">
-              Running
-            </p>
-            <p className="text-lg font-semibold text-slate-900">
-              {active.projectName}
-            </p>
+          <div className="flex items-start gap-2">
+            <span
+              className="mt-2 inline-block h-2.5 w-2.5 shrink-0 rounded-full bg-success"
+              aria-hidden="true"
+            />
+            <div>
+              <p className="text-xs font-medium text-muted">Running</p>
+              <p className="text-lg font-semibold text-foreground">
+                {active.projectName}
+              </p>
+            </div>
           </div>
         ) : (
-          <select
-            className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm sm:max-w-xs"
-            value={projectId}
-            onChange={(e) => setProjectId(e.target.value)}
-          >
-            {projects.length === 0 ? (
-              <option value="">No active projects</option>
-            ) : (
-              projects.map((p) => (
-                <option key={p.id} value={p.id}>
-                  {p.name}
-                </option>
-              ))
-            )}
-          </select>
+          <label className="block w-full space-y-1 sm:max-w-xs">
+            <span className="text-sm font-medium text-mutedStrong">Project</span>
+            <select
+              className="w-full rounded-lg border border-border bg-card px-3 py-2 text-sm text-foreground"
+              value={projectId}
+              onChange={(e) => setProjectId(e.target.value)}
+            >
+              {projects.length === 0 ? (
+                <option value="">No active projects</option>
+              ) : (
+                projects.map((p) => (
+                  <option key={p.id} value={p.id}>
+                    {p.name}
+                  </option>
+                ))
+              )}
+            </select>
+          </label>
         )}
-        <p className="font-mono text-2xl font-semibold tabular-nums text-slate-900">
+        <p className="font-mono text-2xl font-semibold tabular-nums text-foreground">
           {display}
         </p>
       </div>
@@ -124,8 +138,9 @@ export function TimerBar({
           </Button>
         )}
       </div>
-      {error ? <p className="w-full text-sm text-red-600 sm:basis-full">{error}</p> : null}
-      {/* silence unused */}
+      {error ? (
+        <p className="w-full text-sm text-danger sm:basis-full">{error}</p>
+      ) : null}
       <span className="hidden">{seconds}</span>
     </div>
   );

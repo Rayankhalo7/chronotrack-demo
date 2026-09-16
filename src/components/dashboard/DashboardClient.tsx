@@ -29,17 +29,15 @@ export function DashboardClient({
         projects={projects}
         initialActive={initialActive}
         onChanged={refresh}
+        sticky
       />
       <div className="flex items-center justify-between">
-        <h2 className="text-lg font-semibold text-slate-900">Recent entries</h2>
+        <h2 className="text-lg font-semibold text-foreground">Recent entries</h2>
         <div className="flex gap-3 text-sm">
-          <Link href="/entries" className="text-blue-600 hover:underline">
+          <Link href="/entries" className="text-accent hover:underline">
             All entries
           </Link>
-          <a
-            href="/api/export/csv"
-            className="text-blue-600 hover:underline"
-          >
+          <a href="/api/export/csv" className="text-accent hover:underline">
             Export CSV
           </a>
         </div>
@@ -47,10 +45,10 @@ export function DashboardClient({
       <EntryTable entries={initialEntries} onDeleted={refresh} />
       {projects.length === 0 ? (
         <Card>
-          <p className="text-sm text-slate-600">
+          <p className="text-sm text-mutedStrong">
             No projects yet.{" "}
-            <Link href="/projects" className="text-blue-600 hover:underline">
-              Create one
+            <Link href="/projects" className="text-accent hover:underline">
+              Create a project
             </Link>{" "}
             to start the timer.
           </p>

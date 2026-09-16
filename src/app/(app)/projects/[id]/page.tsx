@@ -25,17 +25,17 @@ export default async function ProjectDetailPage({ params }: Props) {
   return (
     <div className="space-y-6">
       <div>
-        <Link href="/projects" className="text-sm text-blue-600 hover:underline">
+        <Link href="/projects" className="text-sm text-accent hover:underline">
           ← Projects
         </Link>
-        <h1 className="mt-2 flex items-center gap-3 text-2xl font-bold text-slate-900">
+        <h1 className="mt-2 flex items-center gap-3 text-2xl font-bold text-foreground">
           <span
             className="inline-block h-4 w-4 rounded-full"
             style={{ background: project.color || "#94a3b8" }}
           />
           {project.name}
           {project.archived ? (
-            <span className="rounded-full bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-600">
+            <span className="rounded-full bg-accentSoft px-2 py-0.5 text-xs font-medium text-mutedStrong">
               archived
             </span>
           ) : null}

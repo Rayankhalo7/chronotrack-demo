@@ -28,60 +28,76 @@ export function EntryTable({
 
   if (entries.length === 0) {
     return (
-      <p className="rounded-lg border border-dashed border-slate-300 p-6 text-center text-sm text-slate-500">
+      <p className="rounded-lg border border-dashed border-border p-6 text-center text-sm text-muted">
         No entries for this filter.
       </p>
     );
   }
 
   return (
-    <div className="overflow-x-auto rounded-xl border border-slate-200 bg-white shadow-sm">
+    <div className="overflow-x-auto rounded-xl border border-border bg-card">
       <table className="min-w-full text-left text-sm">
-        <thead className="bg-slate-50 text-slate-600">
+        <thead className="border-b border-border text-muted">
           <tr>
-            <th className="px-4 py-3 font-medium">Project</th>
-            <th className="px-4 py-3 font-medium">Start</th>
-            <th className="px-4 py-3 font-medium">End</th>
-            <th className="px-4 py-3 font-medium">Duration</th>
-            <th className="px-4 py-3 font-medium">Note</th>
-            <th className="px-4 py-3 font-medium" />
+            <th className="px-4 py-2.5 font-medium">Project</th>
+            <th className="px-4 py-2.5 font-medium">Start</th>
+            <th className="px-4 py-2.5 font-medium">End</th>
+            <th className="px-4 py-2.5 font-medium">Duration</th>
+            <th className="px-4 py-2.5 font-medium">Note</th>
+            <th className="px-4 py-2.5 font-medium" />
           </tr>
         </thead>
         <tbody>
-          {entries.map((e) => (
-            <tr key={e.id} className="border-t border-slate-100">
-              <td className="px-4 py-3">
-                <span className="inline-flex items-center gap-2">
-                  <span
-                    className="inline-block h-2.5 w-2.5 rounded-full"
-                    style={{ background: e.projectColor || "#94a3b8" }}
-                  />
-                  {e.projectName || "—"}
-                </span>
-              </td>
-              <td className="px-4 py-3 whitespace-nowrap text-slate-700">
-                {new Date(e.startedAt).toLocaleString()}
-              </td>
-              <td className="px-4 py-3 whitespace-nowrap text-slate-700">
-                {e.endedAt ? new Date(e.endedAt).toLocaleString() : "Running"}
-              </td>
-              <td className="px-4 py-3">
-                {e.durationMinutes != null
-                  ? formatMinutes(e.durationMinutes)
-                  : "—"}
-              </td>
-              <td className="px-4 py-3 text-slate-600">{e.note || "—"}</td>
-              <td className="px-4 py-3 text-right">
-                <Button
-                  size="sm"
-                  variant="ghost"
-                  onClick={() => remove(e.id)}
-                >
-                  Delete
-                </Button>
-              </td>
-            </tr>
-          ))}
+          {entries.map((e) => {
+            const running = !e.endedAt;
+            return (
+              <tr
+                key={e.id}
+                className="border-t border-border hover:bg-accentSoft/40"
+              >
+                <td className="px-4 py-2.5">
+                  <span className="inline-flex items-center gap-2">
+                    <span
+                      className="inline-block h-2.5 w-2.5 rounded-full"
+                      style={{ background: e.projectColor || "#94a3b8" }}
+                    />
+                    {e.projectName || "—"}
+                  </span>
+                </td>
+                <td className="whitespace-nowrap px-4 py-2.5 text-mutedStrong">
+                  {new Date(e.startedAt).toLocaleString()}
+                </td>
+                <td className="whitespace-nowrap px-4 py-2.5 text-mutedStrong">
+                  {running ? (
+                    <span className="inline-flex items-center gap-2">
+                      <span
+                        className="inline-block h-2 w-2 rounded-full bg-success"
+                        aria-hidden="true"
+                      />
+                      Running
+                    </span>
+                  ) : (
+                    new Date(e.endedAt!).toLocaleString()
+                  )}
+                </td>
+                <td className="px-4 py-2.5 font-mono tabular-nums">
+                  {e.durationMinutes != null
+                    ? formatMinutes(e.durationMinutes)
+                    : "—"}
+                </td>
+                <td className="px-4 py-2.5 text-muted">{e.note || "—"}</td>
+                <td className="px-4 py-2.5 text-right">
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    onClick={() => remove(e.id)}
+                  >
+                    Delete
+                  </Button>
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>
