@@ -49,7 +49,7 @@ export function ProjectsClient({ initial }: { initial: Project[] }) {
       {banner ? (
         <div
           role="alert"
-          className="rounded-lg border border-warning/40 bg-warning/10 px-4 py-3 text-sm text-foreground"
+          className="rounded-none border border-border bg-panel px-4 py-3 text-sm text-foreground"
         >
           <div className="flex items-start justify-between gap-3">
             <p>{banner}</p>
@@ -68,7 +68,7 @@ export function ProjectsClient({ initial }: { initial: Project[] }) {
         <ProjectForm onCreated={refresh} />
       </Card>
       {initial.length === 0 ? (
-        <p className="rounded-lg border border-dashed border-border p-6 text-center text-sm text-muted">
+        <p className="rounded-none border border-dashed border-border p-6 text-center text-sm text-muted">
           No projects yet. Add one above to start tracking.
         </p>
       ) : (
@@ -76,14 +76,14 @@ export function ProjectsClient({ initial }: { initial: Project[] }) {
           {initial.map((p) => (
             <li
               key={p.id}
-              className={`flex flex-col gap-3 rounded-xl border border-border bg-card p-4 sm:flex-row sm:items-center sm:justify-between ${
+              className={`flex flex-col gap-3 rounded-none border border-border bg-panel p-4 sm:flex-row sm:items-center sm:justify-between ${
                 p.archived ? "opacity-70" : ""
               }`}
             >
               <div className="flex items-center gap-3">
                 <span
                   className="h-4 w-4 rounded-full"
-                  style={{ background: p.color || "#94a3b8" }}
+                  style={{ background: p.color || "#5C6B7A" }}
                 />
                 <div>
                   <Link

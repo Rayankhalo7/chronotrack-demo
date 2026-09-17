@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/Input";
 
 export function ProjectForm({ onCreated }: { onCreated?: () => void }) {
   const [name, setName] = useState("");
-  const [color, setColor] = useState("#3B82F6");
+  const [color, setColor] = useState("#2F5BFF");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -44,12 +44,12 @@ export function ProjectForm({ onCreated }: { onCreated?: () => void }) {
         />
       </div>
       <label className="block space-y-1">
-        <span className="text-sm font-medium text-mutedStrong">Color</span>
+        <span className="text-sm font-medium text-muted-strong">Color</span>
         <input
           type="color"
           value={color}
           onChange={(e) => setColor(e.target.value)}
-          className="h-10 w-14 cursor-pointer rounded border border-border bg-card"
+          className="h-10 w-14 cursor-pointer rounded-[4px] border border-border bg-panel"
         />
       </label>
       <Button type="submit" disabled={busy || !name.trim()}>

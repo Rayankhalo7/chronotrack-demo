@@ -2,41 +2,71 @@
 @tailwind components;
 @tailwind utilities;
 
+/* CONCEPT-v2 — Betriebswerkstatt tokens (shared with website) */
 :root {
   color-scheme: light;
-  --background: #fafaf9;
-  --foreground: #0f172a;
-  --muted: #64748b;
-  --muted-strong: #475569;
-  --card: #ffffff;
-  --border: #e7e5e4;
-  --accent: #0f766e;
-  --accent-hover: #115e59;
-  --accent-soft: #ccfbf1;
-  --danger: #dc2626;
-  --success: #059669;
-  --warning: #d97706;
+  --porcelain: #f5f6f8;
+  --ink: #1a2332;
+  --steel: #5c6b7a;
+  --panel: #ffffff;
+  --rule: #d0d7e0;
+  --cobalt: #2f5bff;
+  --cobalt-hover: #2448d6;
+  --danger: #c62828;
+  --success: #1b7a4e;
+
+  --background: var(--porcelain);
+  --foreground: var(--ink);
+  --muted: var(--steel);
+  --muted-strong: #3d4a5c;
+  --card: var(--panel);
+  --border: var(--rule);
+  --accent: var(--cobalt);
+  --accent-hover: var(--cobalt-hover);
 }
 
 .dark {
   color-scheme: dark;
-  --background: #0c0f14;
-  --foreground: #e2e8f0;
-  --muted: #94a3b8;
-  --muted-strong: #cbd5e1;
-  --card: #12171f;
-  --border: #1e2530;
-  --accent: #2dd4bf;
-  --accent-hover: #5eead4;
-  --accent-soft: #134e4a;
-  --danger: #f87171;
-  --success: #34d399;
-  --warning: #fbbf24;
+  --porcelain: #0e141c;
+  --ink: #e8eef4;
+  --steel: #9aa8b5;
+  --panel: #161d28;
+  --rule: #2a3444;
+  --cobalt: #7b93ff;
+  --cobalt-hover: #9aafff;
+  --danger: #ef5350;
+  --success: #3ddc97;
+
+  --background: var(--porcelain);
+  --foreground: var(--ink);
+  --muted: var(--steel);
+  --muted-strong: #c5d0db;
+  --card: var(--panel);
+  --border: var(--rule);
+  --accent: var(--cobalt);
+  --accent-hover: var(--cobalt-hover);
 }
 
 body {
   @apply bg-background text-foreground antialiased;
-  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  font-family: var(--font-source-sans), system-ui, sans-serif;
+}
+
+.font-display {
+  font-family: var(--font-syne), system-ui, sans-serif;
+}
+
+/* Cobalt rail — landing signature */
+.rail {
+  border-left: 4px solid var(--accent);
+  padding-left: 1.25rem;
+}
+
+@media (max-width: 767px) {
+  .rail {
+    border-left-width: 3px;
+    padding-left: 1rem;
+  }
 }
 
 *:focus-visible {

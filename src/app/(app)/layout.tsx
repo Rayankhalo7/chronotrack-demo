@@ -15,12 +15,12 @@ export default async function AppLayout({
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="sticky top-0 z-40 border-b border-border bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/80">
+      <header className="sticky top-0 z-40 border-b border-border bg-panel">
         <div className="mx-auto flex h-14 max-w-6xl items-center justify-between gap-3 px-4">
           <div className="flex min-w-0 items-center gap-4">
             <Link
               href="/dashboard"
-              className="shrink-0 font-semibold text-foreground"
+              className="font-display shrink-0 text-base font-bold tracking-tight text-foreground"
             >
               ChronoTrack
             </Link>

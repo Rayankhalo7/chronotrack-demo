@@ -50,9 +50,9 @@ export function EntryForm({
   return (
     <form onSubmit={submit} className="space-y-3">
       <label className="block space-y-1">
-        <span className="text-sm font-medium text-mutedStrong">Project</span>
+        <span className="text-sm font-medium text-muted-strong">Project</span>
         <select
-          className="w-full rounded-lg border border-border bg-card px-3 py-2 text-sm text-foreground"
+          className="w-full rounded-[4px] border border-border bg-panel px-3 py-2 text-sm text-foreground"
           value={projectId}
           onChange={(e) => setProjectId(e.target.value)}
           required

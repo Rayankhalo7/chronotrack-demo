@@ -28,14 +28,14 @@ export function EntryTable({
 
   if (entries.length === 0) {
     return (
-      <p className="rounded-lg border border-dashed border-border p-6 text-center text-sm text-muted">
+      <p className="rounded-none border border-dashed border-border p-6 text-center text-sm text-muted">
         No entries for this filter.
       </p>
     );
   }
 
   return (
-    <div className="overflow-x-auto rounded-xl border border-border bg-card">
+    <div className="overflow-x-auto rounded-none border border-border bg-panel">
       <table className="min-w-full text-left text-sm">
         <thead className="border-b border-border text-muted">
           <tr>
@@ -53,21 +53,21 @@ export function EntryTable({
             return (
               <tr
                 key={e.id}
-                className="border-t border-border hover:bg-accentSoft/40"
+                className="border-t border-border hover:bg-background"
               >
                 <td className="px-4 py-2.5">
                   <span className="inline-flex items-center gap-2">
                     <span
                       className="inline-block h-2.5 w-2.5 rounded-full"
-                      style={{ background: e.projectColor || "#94a3b8" }}
+                      style={{ background: e.projectColor || "#5C6B7A" }}
                     />
                     {e.projectName || "—"}
                   </span>
                 </td>
-                <td className="whitespace-nowrap px-4 py-2.5 text-mutedStrong">
+                <td className="whitespace-nowrap px-4 py-2.5 text-muted-strong">
                   {new Date(e.startedAt).toLocaleString()}
                 </td>
-                <td className="whitespace-nowrap px-4 py-2.5 text-mutedStrong">
+                <td className="whitespace-nowrap px-4 py-2.5 text-muted-strong">
                   {running ? (
                     <span className="inline-flex items-center gap-2">
                       <span
@@ -80,7 +80,7 @@ export function EntryTable({
                     new Date(e.endedAt!).toLocaleString()
                   )}
                 </td>
-                <td className="px-4 py-2.5 font-mono tabular-nums">
+                <td className="px-4 py-2.5 tabular-nums">
                   {e.durationMinutes != null
                     ? formatMinutes(e.durationMinutes)
                     : "—"}

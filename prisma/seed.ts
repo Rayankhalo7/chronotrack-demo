@@ -11,28 +11,16 @@ const DEMO_EMAIL = "demo@chronotrack.dev";
 const DEMO_PASSWORD_HASH =
   "$2b$12$OOD2gAmxGcRP20fZE.l2ceY3XG2hoSwX7kWLl9hjeUAnagA1zPw82";
 
-async function main() {
-  await prisma.timeEntry.deleteMany();
-  await prisma.project.deleteMany();
-  await prisma.user.deleteMany();
-
-  const user = await prisma.user.create({
-    data: {
-      email: DEMO_EMAIL,
-      name: "Demo User",
-      passwordHash: DEMO_PASSWORD_HASH,
-    },
-  });
-
+async function seedSampleData(userId: string) {
   const projects = await Promise.all([
     prisma.project.create({
-      data: { name: "Portfolio Website", color: "#3B82F6", userId: user.id },
+      data: { name: "Portfolio Website", color: "#3B82F6", userId },
     }),
     prisma.project.create({
-      data: { name: "Client Discovery", color: "#10B981", userId: user.id },
+      data: { name: "Client Discovery", color: "#10B981", userId },
     }),
     prisma.project.create({
-      data: { name: "Learning / Docs", color: "#F59E0B", userId: user.id },
+      data: { name: "Learning / Docs", color: "#F59E0B", userId },
     }),
   ]);
 
@@ -48,42 +36,42 @@ async function main() {
   await prisma.timeEntry.createMany({
     data: [
       {
-        userId: user.id,
+        userId,
         projectId: projects[0].id,
         startedAt: daysAgo(1, 9),
         endedAt: daysAgo(1, 11),
         note: "Landing page layout",
       },
       {
-        userId: user.id,
+        userId,
         projectId: projects[0].id,
         startedAt: daysAgo(1, 14),
         endedAt: daysAgo(1, 16),
         note: "Responsive polish",
       },
       {
-        userId: user.id,
+        userId,
         projectId: projects[1].id,
         startedAt: daysAgo(2, 10),
         endedAt: daysAgo(2, 12),
         note: "Stakeholder call notes",
       },
       {
-        userId: user.id,
+        userId,
         projectId: projects[2].id,
         startedAt: daysAgo(3, 15),
         endedAt: daysAgo(3, 17),
         note: "Prisma + NextAuth notes",
       },
       {
-        userId: user.id,
+        userId,
         projectId: projects[0].id,
         startedAt: hoursAgo(3),
         endedAt: hoursAgo(1),
         note: "Today: timer UX",
       },
       {
-        userId: user.id,
+        userId,
         projectId: projects[1].id,
         startedAt: daysAgo(0, 8),
         endedAt: daysAgo(0, 9),
@@ -92,10 +80,51 @@ async function main() {
     ],
   });
 
+  return projects.length;
+}
+
+async function main() {
+  const reset = process.env.SEED_RESET === "true";
+
+  if (reset) {
+    await prisma.timeEntry.deleteMany();
+    await prisma.project.deleteMany();
+    await prisma.user.deleteMany();
+  }
+
+  const user = await prisma.user.upsert({
+    where: { email: DEMO_EMAIL },
+    update: {
+      name: "Demo User",
+      passwordHash: DEMO_PASSWORD_HASH,
+    },
+    create: {
+      email: DEMO_EMAIL,
+      name: "Demo User",
+      passwordHash: DEMO_PASSWORD_HASH,
+    },
+  });
+
+  const existingProjects = await prisma.project.count({
+    where: { userId: user.id },
+  });
+
+  let projectCount = existingProjects;
+  if (reset || existingProjects === 0) {
+    if (!reset && existingProjects === 0) {
+      projectCount = await seedSampleData(user.id);
+    } else if (reset) {
+      projectCount = await seedSampleData(user.id);
+    }
+  }
+
+  const entryCount = await prisma.timeEntry.count({ where: { userId: user.id } });
+
   console.log("Seed complete:", {
     user: user.email,
-    projects: projects.length,
-    entries: 6,
+    projects: projectCount,
+    entries: entryCount,
+    reset,
   });
 }
 

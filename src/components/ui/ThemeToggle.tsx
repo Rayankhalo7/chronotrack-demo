@@ -1,6 +1,5 @@
 "use client";
 
-import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 
 function SunIcon() {
@@ -40,40 +39,59 @@ function MoonIcon() {
   );
 }
 
+const STORAGE_KEY = "chronotrack-theme";
+
+function applyTheme(theme: "light" | "dark") {
+  const root = document.documentElement;
+  root.classList.toggle("dark", theme === "dark");
+  root.style.colorScheme = theme;
+  try {
+    localStorage.setItem(STORAGE_KEY, theme);
+  } catch {
+    /* ignore */
+  }
+}
+
+function readTheme(): "light" | "dark" {
+  try {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (stored === "dark" || stored === "light") return stored;
+  } catch {
+    /* ignore */
+  }
+  return "light";
+}
+
+const toggleClass =
+  "inline-flex h-11 w-11 items-center justify-center rounded-[4px] border border-border bg-panel text-foreground transition hover:border-accent hover:text-accent";
+
 export function ThemeToggle() {
-  const { theme, setTheme, resolvedTheme } = useTheme();
+  const [theme, setThemeState] = useState<"light" | "dark">("light");
   const [mounted, setMounted] = useState(false);
 
-  useEffect(() => setMounted(true), []);
+  useEffect(() => {
+    const initial = readTheme();
+    applyTheme(initial);
+    setThemeState(initial);
+    setMounted(true);
+  }, []);
 
-  if (!mounted) {
-    return (
-      <button
-        type="button"
-        className="inline-flex h-11 w-11 items-center justify-center rounded-lg border border-border bg-card text-muted"
-        aria-label="Toggle theme"
-        disabled
-      >
-        <span className="sr-only">Toggle theme</span>
-        <SunIcon />
-      </button>
-    );
-  }
-
-  const isDark = resolvedTheme === "dark";
+  const isDark = theme === "dark";
 
   return (
     <button
       type="button"
-      onClick={() => setTheme(isDark ? "light" : "dark")}
-      className="inline-flex h-11 w-11 items-center justify-center rounded-lg border border-border bg-card text-foreground transition hover:border-accent hover:text-accent"
+      onClick={() => {
+        const next = isDark ? "light" : "dark";
+        applyTheme(next);
+        setThemeState(next);
+      }}
+      className={toggleClass}
       aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
       title={isDark ? "Light mode" : "Dark mode"}
     >
-      {isDark ? <SunIcon /> : <MoonIcon />}
-      <span className="sr-only">
-        Current theme: {theme ?? "system"} — toggle
-      </span>
+      {mounted && isDark ? <SunIcon /> : <MoonIcon />}
+      <span className="sr-only">Toggle theme</span>
     </button>
   );
 }

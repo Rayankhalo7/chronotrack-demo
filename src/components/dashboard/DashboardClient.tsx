@@ -45,7 +45,7 @@ export function DashboardClient({
       <EntryTable entries={initialEntries} onDeleted={refresh} />
       {projects.length === 0 ? (
         <Card>
-          <p className="text-sm text-mutedStrong">
+          <p className="text-sm text-muted-strong">
             No projects yet.{" "}
             <Link href="/projects" className="text-accent hover:underline">
               Create a project

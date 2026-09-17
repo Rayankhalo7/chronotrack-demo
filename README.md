@@ -2,7 +2,7 @@
 
 Portfolio time-tracking demo: projects, start/stop timer, manual entries, dashboard totals, and CSV export.
 
-**Stack:** Next.js App Router · TypeScript · Prisma · SQLite (dev) / Postgres (prod) · NextAuth Credentials · Demo-Login · Tailwind
+**Stack:** Next.js App Router · TypeScript · Prisma · SQLite (local) / PostgreSQL (Vercel) · NextAuth Credentials · Demo-Login · Tailwind
 
 > Spec: see [`docs/ARCHITECTURE.md`](./docs/ARCHITECTURE.md) (also at repo root).
 
@@ -20,6 +20,8 @@ The seed stores a **bcrypt hash only** — the plaintext password appears **only
 There is **no public registration** in the MVP.
 
 ## Setup (local)
+
+Local uses SQLite by default. Postgres is only for Vercel — see [docs/DEPLOY-VERCEL.md](./docs/DEPLOY-VERCEL.md).
 
 ```bash
 cp .env.example .env
@@ -57,18 +59,14 @@ Open [http://localhost:3000](http://localhost:3000) → Sign in / Demo Login →
 | Choice | Why |
 |--------|-----|
 | Next.js App Router + TS | Portfolio-standard full-stack React with typed routes |
-| Prisma + SQLite | Zero-ops local DB; swap `DATABASE_URL` to Postgres for prod |
+| Prisma + SQLite local | Zero-ops local DB; Postgres schema under `prisma/postgresql/` for Vercel |
 | NextAuth Credentials | Simple demo auth without OAuth setup friction |
 | Soft-archive projects | Preserve history; avoid orphaned time data |
 | Vitest for `lib/time` + entry rules | Fast unit coverage of duration/timer invariants |
 
 ## Deploy (Vercel + Postgres)
 
-1. Create a Postgres database (Neon, Supabase, Vercel Postgres, etc.).
-2. Set env vars: `DATABASE_URL`, `NEXTAUTH_URL`, `NEXTAUTH_SECRET`, optionally `DEMO_LOGIN_ENABLED=true`.
-3. In `prisma/schema.prisma`, set `provider = "postgresql"` (or use a prod schema), then `npx prisma migrate deploy`.
-4. Run seed once in a one-off job or locally against prod URL.
-5. Deploy the Next.js app to Vercel.
+See **[docs/DEPLOY-VERCEL.md](./docs/DEPLOY-VERCEL.md)** for env vars, build/migrate, and one-time seed.
 
 ## License
 

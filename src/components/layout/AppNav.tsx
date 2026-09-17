@@ -23,8 +23,8 @@ export function AppNav() {
             href={link.href}
             className={
               active
-                ? "whitespace-nowrap rounded-lg bg-accentSoft px-3 py-1.5 font-medium text-accent"
-                : "whitespace-nowrap rounded-lg px-3 py-1.5 text-muted hover:text-foreground"
+                ? "whitespace-nowrap border-b-2 border-accent px-3 py-1.5 font-semibold text-accent"
+                : "whitespace-nowrap border-b-2 border-transparent px-3 py-1.5 text-muted hover:text-foreground"
             }
           >
             {link.label}

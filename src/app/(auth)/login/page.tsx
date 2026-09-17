@@ -37,7 +37,10 @@ export default function LoginPage() {
     <div className="min-h-screen bg-background">
       <header className="border-b border-border">
         <div className="mx-auto flex h-14 max-w-md items-center justify-between px-4">
-          <Link href="/" className="text-sm font-semibold text-accent">
+          <Link
+            href="/"
+            className="font-display text-sm font-bold tracking-tight text-foreground"
+          >
             ChronoTrack
           </Link>
           <ThemeToggle />
@@ -45,7 +48,9 @@ export default function LoginPage() {
       </header>
       <main className="mx-auto flex max-w-md flex-col justify-center px-4 py-12">
         <div className="mb-6 text-center">
-          <h1 className="text-2xl font-bold text-foreground">Sign in</h1>
+          <h1 className="font-display text-2xl font-bold text-foreground">
+            Sign in
+          </h1>
           <p className="mt-1 text-sm text-muted">
             Seed user + Demo Login. No public registration in MVP.
           </p>
@@ -56,8 +61,8 @@ export default function LoginPage() {
             <div className="absolute inset-0 flex items-center">
               <div className="w-full border-t border-border" />
             </div>
-            <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-card px-2 text-muted">or credentials</span>
+            <div className="relative flex justify-center text-xs">
+              <span className="bg-panel px-2 text-muted">or credentials</span>
             </div>
           </div>
           <form onSubmit={onSubmit} className="space-y-3">

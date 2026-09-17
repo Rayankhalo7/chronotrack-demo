@@ -85,8 +85,8 @@ export function TimerBar({
 
   return (
     <div
-      className={`flex flex-col gap-3 rounded-xl border border-border bg-card p-4 sm:flex-row sm:items-center sm:justify-between ${
-        shouldStick ? "sticky top-14 z-30 shadow-sm" : ""
+      className={`flex flex-col gap-3 rounded-none border border-border bg-panel p-4 sm:flex-row sm:items-center sm:justify-between ${
+        shouldStick ? "sticky top-14 z-30" : ""
       }`}
     >
       <div className="flex flex-1 flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
@@ -105,9 +105,9 @@ export function TimerBar({
           </div>
         ) : (
           <label className="block w-full space-y-1 sm:max-w-xs">
-            <span className="text-sm font-medium text-mutedStrong">Project</span>
+            <span className="text-sm font-medium text-muted-strong">Project</span>
             <select
-              className="w-full rounded-lg border border-border bg-card px-3 py-2 text-sm text-foreground"
+              className="w-full rounded-[4px] border border-border bg-panel px-3 py-2 text-sm text-foreground"
               value={projectId}
               onChange={(e) => setProjectId(e.target.value)}
             >
@@ -123,7 +123,7 @@ export function TimerBar({
             </select>
           </label>
         )}
-        <p className="font-mono text-2xl font-semibold tabular-nums text-foreground">
+        <p className="text-2xl font-semibold tabular-nums text-foreground">
           {display}
         </p>
       </div>
